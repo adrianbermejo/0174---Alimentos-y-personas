@@ -18,7 +18,7 @@ public class Persona
     private int edad;
     private int calorias;
     private ArrayList<Comida> comidas;
-    private ArrayList<Persona> listaDePersonas;
+
     /**
      * Constructor for objects of class Personas
      */
@@ -30,7 +30,7 @@ public class Persona
         this.altura = altura;
         this.edad= edad;
         calorias =0;
-        listaDePersonas = new ArrayList<>();
+        comidas = new ArrayList<>();
     }
 
     /**
@@ -44,12 +44,13 @@ public class Persona
     /**
      * dar de comer a una persona no puede superar su metabolismo basal
      */
-    public int comer(Comida comida){
+    public int comer(Comida plato){
         int devolver =0;
 
         if ((varon=true && calorias<=(10*peso+6*altura+5*edad)+5 )|| (varon =false&& calorias<=(10*peso+6*altura+5*edad)- 161)){
-            calorias = calorias + comida.getCalorias();
-            devolver = comida.getCalorias();
+            calorias = calorias + plato.getCalorias();
+            devolver = plato.getCalorias();
+            comidas.add(plato);
         }
         else{
             devolver=-1;   
@@ -58,41 +59,70 @@ public class Persona
         return devolver;
     }
 
+    /**
+     * Ahora queremos que sea posible preguntarle cosas a la persona. Si no ha sobrepasado su metabolismo basal, te contestará "SI" o "NO" (¡en mayúsculas!)
+     * dependiendo de si la pregunta tiene una longitud (es decir, el número de letras de la misma) divisible por 3 o no, respectivamente.
+     *  En caso de que la persona ya haya sobrepasado el metabolismo basal o en el caso de que tu pregunta contenga el nombre de la persona,
+     *  responderá con la misma pregunta que le has hecho pero gritando (es decir, el mismo texto de la pregunta pero en mayúsculas) indiferentemente de la longitud de a pregunta.
+     *  El método que se utiliza para preguntar cosas a la persona debe llamarse contestar, admite un único parámetro y debe devolver la respuesta además de imprimirla por pantalla.
+     */
     public String contestar(String pregunta){
         float div = (float)pregunta.length()/3;
         String devolver = "NO";
-       int resultado = pregunta.toUpperCase().indexOf(nombre.toUpperCase());
+        int resultado = pregunta.toUpperCase().indexOf(nombre.toUpperCase());
 
         if (((varon=true && calorias>=(10*peso+6*altura+5*edad)+5 )|| (varon =false&& calorias>=(10*peso+6*altura+5*edad)- 161))){
-                devolver = pregunta.toUpperCase();
+            devolver = pregunta.toUpperCase();
         }
-       else if(resultado != -1){
-           devolver = pregunta.toUpperCase();
-       }
-      else{
+        else if(resultado != -1){
+            devolver = pregunta.toUpperCase();
+        }
+        else{
             if (div==pregunta.length()/3){
 
                 devolver = "SI";
 
             }
-             else if(resultado != -1){
-           devolver = pregunta.toUpperCase();
-       }
-      
+            else if(resultado != -1){
+                devolver = pregunta.toUpperCase();
+            }
+
             else{
                 devolver = "NO" ; 
             }
- }
-       
+        }
+
         System.out.print(devolver);
         return devolver ;
 
-     }
     }
-    
-    
-    
-    
-    
-    
+
+    /**
+     * Se pide que implementes el código necesario para disponer de un método en la clase Persona llamado getAlimentoMasCaloricoConsumido que imprima por pantalla
+     * y que devuelva el nombre de la comida más calórico ingerida hasta ahora por un usuario.
+     * En caso de que la persona no haya comido nada el método infoma por pantalla de tal situación y devuelve null. En caso de que haya empate entre dos o más comidas, imprime y devuelve la última de ellas.
+     */
+    public String getAlimentoMasCaloricoConsumido(){
+        String mayorCaloria = null;
+        int comer = 0;
+        for(Comida plato:comidas){
+            if(plato.getCalorias()>=comer){
+                comer = plato.getCalorias();
+                mayorCaloria = plato.getComida();
+            }
+        }
+        return mayorCaloria;
+    }
+
+}
+
+
+
+
+
+
+
+
+
+ 
    
