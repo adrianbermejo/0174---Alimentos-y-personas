@@ -1,4 +1,4 @@
-   import java.util.ArrayList;
+import java.util.ArrayList;
 /**
  * El constructor de la clase Persona deberá tener (en el mismo orden):
 
@@ -32,33 +32,67 @@ public class Persona
         calorias =0;
         listaDePersonas = new ArrayList<>();
     }
-    
+
     /**
      * devuelvve las calorias de la persona
      */
     public int getCaloriasIngeridas(){
-        
+
         return calorias;
     }
-    
-/**
- * dar de comer a una persona no puede superar su metabolismo basal
- */
-   public int comer(Comida comida){
-     int devolver =0;
-     
 
-       if ((varon=true && calorias<(10*peso+6*altura+5*edad)+5 )|| (varon =false&& calorias<(10*peso+6*altura+5*edad)- 161)){
-       calorias = calorias + comida.getCalorias();
-       devolver = comida.getCalorias();
+    /**
+     * dar de comer a una persona no puede superar su metabolismo basal
+     */
+    public int comer(Comida comida){
+        int devolver =0;
+
+        if ((varon=true && calorias<=(10*peso+6*altura+5*edad)+5 )|| (varon =false&& calorias<=(10*peso+6*altura+5*edad)- 161)){
+            calorias = calorias + comida.getCalorias();
+            devolver = comida.getCalorias();
+        }
+        else{
+            devolver=-1;   
+        }
+
+        return devolver;
     }
-    else{
-     devolver=-1;   
+
+    public String contestar(String pregunta){
+        float div = (float)pregunta.length()/3;
+        String devolver = "NO";
+       int resultado = pregunta.toUpperCase().indexOf(nombre.toUpperCase());
+
+        if (((varon=true && calorias>=(10*peso+6*altura+5*edad)+5 )|| (varon =false&& calorias>=(10*peso+6*altura+5*edad)- 161))){
+                devolver = pregunta.toUpperCase();
+        }
+       else if(resultado != -1){
+           devolver = pregunta.toUpperCase();
+       }
+      else{
+            if (div==pregunta.length()/3){
+
+                devolver = "SI";
+
+            }
+             else if(resultado != -1){
+           devolver = pregunta.toUpperCase();
+       }
+      
+            else{
+                devolver = "NO" ; 
+            }
+ }
+       
+        System.out.print(devolver);
+        return devolver ;
+
+     }
     }
     
     
-    return devolver;
-}
-
-
-}
+    
+    
+    
+    
+   
